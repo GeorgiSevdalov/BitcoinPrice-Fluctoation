@@ -1,4 +1,7 @@
-function averageValue(value: number) {
+import { getCoinPrice } from "./getData";
+
+function bitFluct(value: number): void {
+    console.log(value);
     const _seven = 7; //declarate it like const because need 7 days period.
     let priceStorage: number[] = [];
     let sum = 0;
@@ -15,13 +18,14 @@ function averageValue(value: number) {
     }
 
     let averageValue: number = sum / priceStorage.length;
-    return averageValue
-}
-
-function containerAverage(averageValue: number) {
+    //////////////////////////////////////////////////////////////////
     let weekAverageStorage: number[] = [];
+    // used for calculating months
     let mounthAverageStorage: number[] = [];
 
+    /**
+     * This function gets the average storage days.
+     */
     if (weekAverageStorage.length < 7) {
         weekAverageStorage.push(averageValue);
     } else {
@@ -35,5 +39,30 @@ function containerAverage(averageValue: number) {
         mounthAverageStorage.shift();
         mounthAverageStorage.push(averageValue)
     }
+    console.log((weekAverageStorage));
+    console.log((mounthAverageStorage));
+
 }
+
+// bitFluct(value)
+
+(async () => {
+    try {
+        const coinPrice = await getCoinPrice();
+        bitFluct(coinPrice);
+
+
+    } catch (err: any) {
+        console.log(err)
+    }
+    
+    
+    
+//     .then((coinPrice: number) => {
+
+//     console.log("Coin price:");
+//     console.log(coinPrice);
+// })
+//     .catch((err: any) => )
+})()
 
