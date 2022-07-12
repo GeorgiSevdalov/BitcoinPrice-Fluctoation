@@ -3,8 +3,11 @@ import fetch from 'node-fetch';
 //pass the result form API and parse it to number.
 
 let printIt = (priceAsString: string): number => {
-    const value = Number(priceAsString);
-    return value;
+    const apiPrice = Number(priceAsString);
+    return apiPrice;
+
+    // return Number(priceAsString);
+    // return +priceAsString;
 } 
 
 // warp fetch in export function and create Promise

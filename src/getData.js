@@ -7,10 +7,12 @@ exports.getCoinPrice = void 0;
 const node_fetch_1 = __importDefault(require("node-fetch"));
 //pass the result form API and parse it to number.
 let printIt = (priceAsString) => {
-    const value = Number(priceAsString);
-    return value;
+    const apiPrice = Number(priceAsString);
+    return apiPrice;
+    // return Number(priceAsString);
+    // return +priceAsString;
 };
-// warp fetch in export function
+// warp fetch in export function and create Promise
 function getCoinPrice() {
     return new Promise((resolve, reject) => {
         const options = {
