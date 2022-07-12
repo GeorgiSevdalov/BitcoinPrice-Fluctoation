@@ -1,9 +1,13 @@
 import fetch from 'node-fetch';
 
+//pass the result form API and parse it to number.
+
 let printIt = (priceAsString: string): number => {
     const value = Number(priceAsString);
     return value;
-}    
+} 
+
+// warp fetch in export function and create Promise
 
 export function getCoinPrice(): Promise<number> {
     return new Promise( (resolve, reject) => {
@@ -14,10 +18,8 @@ export function getCoinPrice(): Promise<number> {
                 'X-RapidAPI-Host': 'coinranking1.p.rapidapi.com'
             }
         };
-        /*first fetch the data and then create a 
-        function to do something with this data
-        Then pass the result to that function and access it anywhere!*/
-        let value;
+        /*fetch the data; create a function to do something with this data
+         and access it anywhere!*/
         fetch('https://coinranking1.p.rapidapi.com/coin/Qwsogvtv82FCd/price?referenceCurrencyUuid=yhjMzLPhuIDl', options)
             .then((response: any) => response.json())
             .then((response: {data: {price: string}}) => {

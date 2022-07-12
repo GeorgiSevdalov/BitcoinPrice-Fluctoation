@@ -1,7 +1,7 @@
 import { getCoinPrice } from "./getData";
 
 function bitFluct(value: number): void {
-    console.log(value);
+    console.log(`Bitcoin price in this moment: ${value}`);
     const _seven = 7; //declarate it like const because need 7 days period.
     let priceStorage: number[] = [];
     let sum = 0;
@@ -44,7 +44,7 @@ function bitFluct(value: number): void {
 
 }
 
-// bitFluct(value)
+
 
 (async () => {
     try {
