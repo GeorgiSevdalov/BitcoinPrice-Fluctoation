@@ -1,10 +1,22 @@
 import { getCoinPrice } from "./getData";
+// import { weekData, monthData } from "../dataJSON/data.json";
+import { getObjFromJson } from "./getObj";
+import * as fs from 'fs';
 
-function bitFluct(bitPrice: number): void {
+export interface Data {
+    weekData: {
+        arrayW: number[]
+    },
+    monthData: {
+        arrayM: number[]
+    }
+}
+
+function bitFluct(bitPrice: number, objJSON: Data): void {
     console.log(`Bitcoin price in this moment: ${bitPrice}`);
+
     const _seven = 7; //declarate it like const because need 7 days period.
-    let priceStorage: number[] = [19850.175784254872, 18970.175784254872, 19760.175784254872, 20150.175784254872,
-        19790.125784254872, 19750.1735784254872, 19750.172784254872];
+    let priceWeekStorage: number[] = objJSON.weekData.arrayW;
     let sumWeek: number = 0;//sum values form priceStorage.
     let sumMonth: number = 0;//sum values form monthAverageStorage
     let highestWeekPrice: number = 0;
@@ -13,14 +25,14 @@ function bitFluct(bitPrice: number): void {
     let lowestMonthPrice: number = 0;
     let checkLow = Number.MAX_SAFE_INTEGER;
 
-    if (priceStorage.length < _seven) {
-        priceStorage.push(bitPrice)
-    } else if (priceStorage.length === _seven) {
-        priceStorage.shift();
-        priceStorage.push(bitPrice)
+    if (priceWeekStorage.length < _seven) {
+        priceWeekStorage.push(bitPrice)
+    } else if (priceWeekStorage.length === _seven) {
+        priceWeekStorage.shift();
+        priceWeekStorage.push(bitPrice)
     }
 
-    for (let el of priceStorage) {
+    for (let el of priceWeekStorage) {
         sumWeek += el;
 
         if (el > highestWeekPrice) {
@@ -32,16 +44,13 @@ function bitFluct(bitPrice: number): void {
         }
     }
 
-    let averageValueW: number = sumWeek / priceStorage.length;  //average value for week.
+    let averageValueW: number = sumWeek / priceWeekStorage.length;  //average value for week.
     console.log(`Bitcoin average price for week: ${averageValueW}
     Highest price for period: ${highestWeekPrice}
     Lowest price for period: ${lowestWeekPrice}`)
 
 
-    let monthAverageStorage: number[] = [19790.125784254872, 19750.1735784254872, 19750.172784254872, 19850.175784254872, 19550.175784254872, 19760.175784254872, 19950.175784254872,
-        19790.125784254872, 19750.1735784254872, 19750.172784254872, 19850.175784254872, 22550.175784254872, 19760.175784254872, 19950.175784254872,
-        19790.125784254872, 19750.1735784254872, 19750.172784254872, 19850.175784254872, 19550.175784254872, 19760.175784254872, 19950.175784254872,
-        19790.125784254872, 19750.1735784254872, 17750.172784254872, 19750.1735784254872, 19760.175784254872, 19950.175784254872, 19750.172784254872]; // used for calculating months
+    let monthAverageStorage: number[] = objJSON.monthData.arrayM; // used for calculating months
 
     if (monthAverageStorage.length < 28) {
         monthAverageStorage.push(averageValueW);
@@ -62,21 +71,34 @@ function bitFluct(bitPrice: number): void {
     }
 
     let averageValueM: number = sumMonth / monthAverageStorage.length;  //average value for month
-    console.log(`Bitcoin average price for 1 month (28days) ${averageValueM}
+    console.log(`Bitcoin average price for 1 month (28days): ${averageValueM}
     Highest price for period: ${highestMonthPrice}
     Lowest price for period: ${lowestMonthPrice}`);
+
+    // update arrayW = priceWeekStorage;
+    //update arrayM = monthAverageStorage;
+    let updatedJson = JSON.stringify({
+        weekData: {
+            arrayW: priceWeekStorage
+        },
+        monthData: {
+            arrayM: monthAverageStorage
+        }
+    })
+
+    fs.writeFile("/dataJSON/data.json", updatedJson, "utf-8", () => { })
 }
 
+    //invokes bitFluct with argument (bitcoin price from API)
+    (async () => {
+        try {
+            const coinPrice: number = await getCoinPrice();
+            let objJSON = await getObjFromJson();
+            bitFluct(coinPrice, objJSON);
 
-//invokes bitFluct with argument (bitcoin price from API)
-(async () => {
-    try {
-        const coinPrice: number = await getCoinPrice();
-        bitFluct(coinPrice);
 
-
-    } catch (err: any) {
-        console.log(err)
-    }
-})()
+        } catch (err: any) {
+            console.log(err)
+        }
+    })()
 
