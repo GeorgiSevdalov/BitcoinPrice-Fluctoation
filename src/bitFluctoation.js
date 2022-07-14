@@ -32,10 +32,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+// import bitcoin price from API.
 const getData_1 = require("./getData");
 // import { weekData, monthData } from "../dataJSON/data.json";
 const getObj_1 = require("./getObj");
 const fs = __importStar(require("fs"));
+;
 function bitFluct(bitPrice, objJSON) {
     console.log(`Bitcoin price in this moment: ${bitPrice}`);
     const _seven = 7; //declarate it like const because need 7 days period.
@@ -50,10 +52,11 @@ function bitFluct(bitPrice, objJSON) {
     if (priceWeekStorage.length < _seven) {
         priceWeekStorage.push(bitPrice);
     }
-    else if (priceWeekStorage.length === _seven) {
+    else {
         priceWeekStorage.shift();
         priceWeekStorage.push(bitPrice);
     }
+    ;
     for (let el of priceWeekStorage) {
         sumWeek += el;
         if (el > highestWeekPrice) {
@@ -64,17 +67,18 @@ function bitFluct(bitPrice, objJSON) {
             lowestWeekPrice = el;
         }
     }
+    ;
     let averageValueW = sumWeek / priceWeekStorage.length; //average value for week.
     console.log(`Bitcoin average price for week: ${averageValueW}
     Highest price for period: ${highestWeekPrice}
     Lowest price for period: ${lowestWeekPrice}`);
-    let monthAverageStorage = objJSON.monthData.arrayM; // used for calculating months
+    let monthAverageStorage = objJSON.monthData.arrayM; // collected daily price for BC for 1 month.
     if (monthAverageStorage.length < 28) {
-        monthAverageStorage.push(averageValueW);
+        monthAverageStorage.push(bitPrice);
     }
     else {
         monthAverageStorage.shift();
-        monthAverageStorage.push(averageValueW);
+        monthAverageStorage.push(bitPrice);
     }
     for (let el of monthAverageStorage) {
         sumMonth += el;
@@ -86,7 +90,7 @@ function bitFluct(bitPrice, objJSON) {
             lowestMonthPrice = el;
         }
     }
-    let averageValueM = sumMonth / monthAverageStorage.length; //average value for month
+    let averageValueM = sumMonth / monthAverageStorage.length; //average value for month.
     console.log(`Bitcoin average price for 1 month (28days): ${averageValueM}
     Highest price for period: ${highestMonthPrice}
     Lowest price for period: ${lowestMonthPrice}`);
@@ -100,13 +104,18 @@ function bitFluct(bitPrice, objJSON) {
             arrayM: monthAverageStorage
         }
     });
-    fs.writeFile("/dataJSON/data.json", updatedJson, "utf-8", () => { });
+    //overwritte JSON file with updated data.
+    fs.writeFile("./dataJSON/data.json", updatedJson, err => {
+        if (err) {
+            console.log('Error writing file', err);
+        }
+    });
 }
-//invokes bitFluct with argument (bitcoin price from API)
+//invokes bitFluct with argument (bitcoin price from API, and obj from JSON).
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const coinPrice = yield (0, getData_1.getCoinPrice)();
-        let objJSON = yield (0, getObj_1.getObjFromJson)();
+        let objJSON = (0, getObj_1.getObjFromJson)();
         bitFluct(coinPrice, objJSON);
     }
     catch (err) {
