@@ -49,9 +49,17 @@ function bitFluct(bitPrice: number, objJSON: Data): void {
 
     let averageValueW: number = sumWeek / priceWeekStorage.length;  //average value for week.
 
+    
+
     console.log(`Bitcoin average price for week: ${averageValueW}
     Highest price for period: ${highestWeekPrice}
     Lowest price for period: ${lowestWeekPrice}`);
+
+    if(bitPrice < highestWeekPrice){
+        console.log(`Price is: ${highestWeekPrice - bitPrice}$ lower than highest price for period`)
+    }else{
+        console.log(`Current price is the highest for last seven days`)
+    }
 
 
     let monthAverageStorage: number[] = objJSON.monthData.arrayM; // collected daily price for BC for 1 month.
@@ -78,6 +86,12 @@ function bitFluct(bitPrice: number, objJSON: Data): void {
     console.log(`Bitcoin average price for 1 month (28days): ${averageValueM}
     Highest price for period: ${highestMonthPrice}
     Lowest price for period: ${lowestMonthPrice}`);
+
+    if(bitPrice < highestMonthPrice){
+        console.log(`Price is: ${highestMonthPrice - bitPrice}$ lower than highest price for period`)
+    }else{
+        console.log(`Current price is the highest for last twenty eight days`)
+    }
 
     // update arrayW = priceWeekStorage;
     //update arrayM = monthAverageStorage;
