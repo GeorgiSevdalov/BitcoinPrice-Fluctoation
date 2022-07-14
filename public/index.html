@@ -13,16 +13,51 @@
     <header>
         <div>
             <h1>Bitcoin price fluctoation</h1>
+            <h2>Good information leads to good decision making.</h2>
         </div>
     </header>
     <section>
         <div>
-            <textarea name="Moment pirce" id="" cols="1" rows="1"></textarea>
-            <button>Show pirce</button>
+            <ul>
+                <li>
+                    <p>Current bitcoin price:</p>
+                </li>
+                <li><textarea name="moment-pirce" id="moment-pirce" cols="" rows=""></textarea></li>
+                <li><button class="btn">Show pirce</button></li>
+            </ul>
+        </div>
+        <div>
+            <ul class="averageUl">
+                <li>
+                    <p>Average price for week:</p>
+                    <textarea name="week-pirce" id="week-pirce" cols="" rows=""></textarea>
+                </li>
+                <li>
+                    <p>Average price for 1 month:</p>
+                    <textarea name="month-pirce" id="month-pirce" cols="" rows=""></textarea>
+                </li>
+            </ul>
+            <button class="btn">calculate average price</button>
+        </div>
+    </section>
+    <section>
+        <div class="previous">
+            <ul>
+                <li>
+                    <p>See previous value:</p>
+                </li>
+                <li class="previousBtn"><button class="btn">for week</button>
+                    <button class="btn">for month</button>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <textarea name="jsonArr" id="jsonArr" cols="30" rows="10"></textarea>
         </div>
     </section>
 
-<script src="script.js"></script>
+
+    <script src="script.js"></script>
 </body>
 
 </html>
