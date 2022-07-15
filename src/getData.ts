@@ -1,14 +1,14 @@
 import fetch from 'node-fetch';
 
-//pass the result form API and parse it to number.
+//pass the result form API (https://rapidapi.com/Coinranking/api/coinranking1/) and parse it to number.
 
-let printIt = (priceAsString: string): number => {
-    const apiPrice = Number(priceAsString);
-    return apiPrice;
+// let printIt = (priceAsString: string): number => {
+//     const apiPrice = Number(priceAsString);
+//     return apiPrice;
 
-    // return Number(priceAsString);
-    // return +priceAsString;
-} 
+//     // return Number(priceAsString);
+//     // return +priceAsString;
+// } 
 
 // warp fetch in export function and create Promise
 
@@ -26,7 +26,8 @@ export function getCoinPrice(): Promise<number> {
         fetch('https://coinranking1.p.rapidapi.com/coin/Qwsogvtv82FCd/price?referenceCurrencyUuid=yhjMzLPhuIDl', options)
             .then((response: any) => response.json())
             .then((response: {data: {price: string}}) => {
-                resolve(printIt(response.data.price))
+                resolve(Number(response.data.price))
+                return Number(response.data.price);
             })
             .catch((err: any) => reject(err));   
     })

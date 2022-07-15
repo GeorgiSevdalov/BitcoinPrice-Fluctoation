@@ -5,13 +5,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getCoinPrice = void 0;
 const node_fetch_1 = __importDefault(require("node-fetch"));
-//pass the result form API and parse it to number.
-let printIt = (priceAsString) => {
-    const apiPrice = Number(priceAsString);
-    return apiPrice;
-    // return Number(priceAsString);
-    // return +priceAsString;
-};
+//pass the result form API (https://rapidapi.com/Coinranking/api/coinranking1/) and parse it to number.
+// let printIt = (priceAsString: string): number => {
+//     const apiPrice = Number(priceAsString);
+//     return apiPrice;
+//     // return Number(priceAsString);
+//     // return +priceAsString;
+// } 
 // warp fetch in export function and create Promise
 function getCoinPrice() {
     return new Promise((resolve, reject) => {
@@ -27,7 +27,8 @@ function getCoinPrice() {
         (0, node_fetch_1.default)('https://coinranking1.p.rapidapi.com/coin/Qwsogvtv82FCd/price?referenceCurrencyUuid=yhjMzLPhuIDl', options)
             .then((response) => response.json())
             .then((response) => {
-            resolve(printIt(response.data.price));
+            resolve(Number(response.data.price));
+            return Number(response.data.price);
         })
             .catch((err) => reject(err));
     });
