@@ -1,12 +1,13 @@
-import { getCoinPrice } from "./getData";//log price at the moment
+import { getCoinPrice } from "./getDataFromApi";//log price at the moment
 
-import { getWeekMonData } from "./getObj";
+import { getWeekMonData } from "./getWeekMonData";
 
 import { Data } from "./24hCycle";
 
 
 const WeekMonData: Data = getWeekMonData();
 
+//calculates average value for week.
 function averageWeek() {
     let priceWeekStorage: number[] = WeekMonData.weekData.arrayW;
     let sum: number = 0;
@@ -20,7 +21,7 @@ function averageWeek() {
 
     return averageW;
 }
-
+//calculates average value for month.
 function averageMonth() {
     let priceMonthStorage: number[] = WeekMonData.monthData.arrayM;
     let sum: number = 0;

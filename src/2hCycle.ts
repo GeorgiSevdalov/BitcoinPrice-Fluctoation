@@ -1,4 +1,4 @@
-import { getCoinPrice } from "./getData";
+import { getCoinPrice } from "./getDataFromApi";
 
 import { getDailyData } from "./getDailyData"
 
