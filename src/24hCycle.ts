@@ -4,7 +4,7 @@ import { DayStorage } from './2hCycle';//interface
 
 import { getDailyData } from "./getDailyData";
 
-import { getWeekMonData } from "./getObj";
+import { getWeekMonData } from "./getWeekMonData";
 
 export interface Data {
     weekData: {
