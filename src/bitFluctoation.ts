@@ -1,7 +1,7 @@
 // import bitcoin price from API.
 import { getCoinPrice } from "./getData";
 // import { weekData, monthData } from "../dataJSON/data.json";
-import { getObjFromJson } from "./getObj";
+import { getWeekMonData } from "./getObj";
 
 import * as fs from 'fs';
 
@@ -106,7 +106,7 @@ function bitFluct(bitPrice: number, objJSON: Data): void {
 
     //overwritte JSON file with updated data.
 
-    fs.writeFile("./dataJSON/data.json", updatedJson, err => {
+    fs.writeFile("./dataJSON/weekMonthData.json", updatedJson, err => {
         if (err) {
             console.log('Error writing file', err)
         }
@@ -118,7 +118,7 @@ function bitFluct(bitPrice: number, objJSON: Data): void {
 (async () => {
     try {
         const coinPrice: number = await getCoinPrice();
-        let objJSON = getObjFromJson();
+        let objJSON = getWeekMonData();
         bitFluct(coinPrice, objJSON);
 
 

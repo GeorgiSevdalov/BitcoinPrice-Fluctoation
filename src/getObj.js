@@ -23,11 +23,11 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getObjFromJson = void 0;
+exports.getWeekMonData = void 0;
 const fs = __importStar(require("fs"));
-function getObjFromJson() {
-    const data = fs.readFileSync("./dataJSON/data.json", "utf-8");
+function getWeekMonData() {
+    const data = fs.readFileSync("./dataJSON/weekMonthData.json", "utf-8");
     return JSON.parse(data);
 }
-exports.getObjFromJson = getObjFromJson;
-getObjFromJson();
+exports.getWeekMonData = getWeekMonData;
+getWeekMonData();

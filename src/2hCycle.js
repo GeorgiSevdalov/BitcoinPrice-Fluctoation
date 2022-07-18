@@ -35,11 +35,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const getData_1 = require("./getData");
 const getDailyData_1 = require("./getDailyData");
 const fs = __importStar(require("fs"));
-//returnt average value for last 24 hrs.
+/*collects the current price every 2 hours and
+ returnt average value for last 24 hrs.*/
 function dailyCycle(actualPrice, dailyData) {
     let priceDayStorage = dailyData.day.array;
-    let dailyAverage = 0;
-    let sum = 0;
     if (priceDayStorage.length < 12) {
         priceDayStorage.push(actualPrice);
     }
@@ -48,10 +47,6 @@ function dailyCycle(actualPrice, dailyData) {
         priceDayStorage.push(actualPrice);
     }
     ;
-    for (let el of priceDayStorage) {
-        sum += el;
-    }
-    dailyAverage = sum / priceDayStorage.length;
     let updatedDayStor = JSON.stringify({
         day: {
             array: priceDayStorage
@@ -63,11 +58,8 @@ function dailyCycle(actualPrice, dailyData) {
             console.log('Error writing file', err);
         }
     });
-    // return
-    console.log(dailyAverage);
 }
-// let run =
-(() => __awaiter(void 0, void 0, void 0, function* () {
+let run = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const coinPrice = yield (0, getData_1.getCoinPrice)();
         let dailyData = (0, getDailyData_1.getDailyData)();
@@ -76,5 +68,5 @@ function dailyCycle(actualPrice, dailyData) {
     catch (err) {
         console.error(err);
     }
-}))();
-// setInterval(run, 7200000);
+});
+setInterval(run, 7200000);

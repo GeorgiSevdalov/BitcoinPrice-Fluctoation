@@ -117,7 +117,7 @@ function bitFluct(bitPrice, objJSON) {
         }
     });
     //overwritte JSON file with updated data.
-    fs.writeFile("./dataJSON/data.json", updatedJson, err => {
+    fs.writeFile("./dataJSON/weekMonthData.json", updatedJson, err => {
         if (err) {
             console.log('Error writing file', err);
         }
@@ -127,7 +127,7 @@ function bitFluct(bitPrice, objJSON) {
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const coinPrice = yield (0, getData_1.getCoinPrice)();
-        let objJSON = (0, getObj_1.getObjFromJson)();
+        let objJSON = (0, getObj_1.getWeekMonData)();
         bitFluct(coinPrice, objJSON);
     }
     catch (err) {
