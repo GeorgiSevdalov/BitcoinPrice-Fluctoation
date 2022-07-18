@@ -36,7 +36,8 @@ const getData_1 = require("./getData");
 const getDailyData_1 = require("./getDailyData");
 const fs = __importStar(require("fs"));
 /*collects the current price every 2 hours and
- returnt average value for last 24 hrs.*/
+ records the data for average value for last 24 hrs
+ in dailyValues.json.*/
 function dailyCycle(actualPrice, dailyData) {
     let priceDayStorage = dailyData.day.array;
     if (priceDayStorage.length < 12) {
@@ -59,6 +60,7 @@ function dailyCycle(actualPrice, dailyData) {
         }
     });
 }
+//get bitcoin price from getData.
 let run = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const coinPrice = yield (0, getData_1.getCoinPrice)();
@@ -69,4 +71,5 @@ let run = () => __awaiter(void 0, void 0, void 0, function* () {
         console.error(err);
     }
 });
+//invoke function every 2 hrs.
 setInterval(run, 7200000);

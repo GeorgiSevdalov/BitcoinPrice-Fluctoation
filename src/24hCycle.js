@@ -29,6 +29,7 @@ const getObj_1 = require("./getObj");
 ;
 const dailyData = (0, getDailyData_1.getDailyData)();
 const WeekMonData = (0, getObj_1.getWeekMonData)();
+//calculates average value for all 12 values.
 function dailyAverage() {
     let priceDayStorage = dailyData.day.array;
     let sum = 0;
@@ -39,6 +40,7 @@ function dailyAverage() {
     averageD = sum / priceDayStorage.length;
     return averageD;
 }
+//once a day get daily average and save it in array for 1 week.
 function weekCycle() {
     let dayInfo = dailyAverage();
     let priceWeekStorage = WeekMonData.weekData.arrayW;
@@ -51,6 +53,7 @@ function weekCycle() {
     }
     return priceWeekStorage;
 }
+//once a day get daily average and save it in array for 1 month.
 function monthCycle() {
     let dayInfo = dailyAverage();
     let priceMonthStorage = WeekMonData.monthData.arrayM;
@@ -63,6 +66,7 @@ function monthCycle() {
     }
     return priceMonthStorage;
 }
+//overwritte JSON file with updated data.
 function overwritteJson() {
     const updWeek = weekCycle();
     const updMonth = monthCycle();
@@ -82,4 +86,5 @@ function overwritteJson() {
     console.log(dailyAverage());
     console.log(updatedJson);
 }
-overwritteJson();
+//invoke function every 24 hrs.
+setInterval(overwritteJson, 1000 * 60 * 60 * 24);

@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import { Data } from './bitFluctoation';
+import { Data } from './24hCycle';
 
 
 export function getWeekMonData(): Data {

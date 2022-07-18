@@ -6,7 +6,7 @@ import { getDailyData } from "./getDailyData";
 
 import { getWeekMonData } from "./getObj";
 
-interface Data {
+export interface Data {
     weekData: {
         arrayW: number[]
     },
@@ -88,5 +88,5 @@ function overwritteJson(){
     console.log(updatedJson);
 }
 
-overwritteJson()
-
+//invoke function every 24 hrs.
+setInterval(overwritteJson,1000 * 60 * 60 * 24)
