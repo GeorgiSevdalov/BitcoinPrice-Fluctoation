@@ -8,7 +8,7 @@ import { Data } from "./24hCycle";
 const WeekMonData: Data = getWeekMonData();
 
 //calculates average value for week.
-function averageWeek() {
+function averageWeek():number {
     let priceWeekStorage: number[] = WeekMonData.weekData.arrayW;
     let sum: number = 0;
     let averageW: number = 0;
@@ -22,7 +22,7 @@ function averageWeek() {
     return averageW;
 }
 //calculates average value for month.
-function averageMonth() {
+function averageMonth():number {
     let priceMonthStorage: number[] = WeekMonData.monthData.arrayM;
     let sum: number = 0;
     let averageM: number = 0;
@@ -36,7 +36,7 @@ function averageMonth() {
     return averageM;
 }
 
-function output(momentPrice: number) {
+function output(momentPrice: number):void {
     let priceWeekStorage: number[] = WeekMonData.weekData.arrayW;
     let priceMonthStorage: number[] = WeekMonData.monthData.arrayM;
     console.log(`Bitcoin price in this moment: ${momentPrice}`)

@@ -20,7 +20,7 @@ const WeekMonData: Data = getWeekMonData();
 
 
 //calculates average value for all 12 values.
-function dailyAverage() {
+function dailyAverage(): number {
     let priceDayStorage: number[] = dailyData.day.array;
     let sum: number = 0;
     let averageD: number = 0;
@@ -35,10 +35,10 @@ function dailyAverage() {
 }
 
 //once a day get daily average and save it in array for 1 week.
-function weekCycle() {
+function weekCycle(): number[] {
     let dayInfo: number = dailyAverage();
     let priceWeekStorage: number[] = WeekMonData.weekData.arrayW;
-    
+
     if (priceWeekStorage.length < 7) {
         priceWeekStorage.push(dayInfo);
     } else {
@@ -50,7 +50,7 @@ function weekCycle() {
 }
 
 //once a day get daily average and save it in array for 1 month.
-function monthCycle(){
+function monthCycle(): number[] {
     let dayInfo: number = dailyAverage();
     let priceMonthStorage: number[] = WeekMonData.monthData.arrayM;
 
@@ -61,11 +61,11 @@ function monthCycle(){
         priceMonthStorage.push(dayInfo);
     }
 
-   return priceMonthStorage;
+    return priceMonthStorage;
 }
 
 //overwritte JSON file with updated data.
-function overwritteJson(){
+function overwritteJson(): void {
     const updWeek = weekCycle();
     const updMonth = monthCycle();
 
@@ -78,15 +78,13 @@ function overwritteJson(){
         }
     })
 
-    fs.writeFile("./dataJSON/weekMonthData.json", updatedJson, err =>{
+    fs.writeFile("./dataJSON/weekMonthData.json", updatedJson, err => {
         if (err) {
             console.log('Error writing file', err)
         }
     })
-
-    console.log(dailyAverage());
-    console.log(updatedJson);
 }
 
 //invoke function every 24 hrs.
-setInterval(overwritteJson,1000 * 60 * 60 * 24)
+setInterval(overwritteJson, 1000 * 60 * 60 * 24)
+

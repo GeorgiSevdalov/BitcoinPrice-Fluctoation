@@ -13,7 +13,7 @@ export interface DayStorage {
 /*collects the current price every 2 hours and
  records the data for average value for last 24 hrs
  in dailyValues.json.*/
-function dailyCycle(actualPrice: number, dailyData: DayStorage) {
+function dailyCycle(actualPrice: number, dailyData: DayStorage):void {
 
     let priceDayStorage: number[] = dailyData.day.array;
 
