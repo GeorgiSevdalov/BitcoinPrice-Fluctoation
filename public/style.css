@@ -1,16 +1,15 @@
 html {
     font-size: 100%;
-    /* box-sizing: border-box; */
     color: rgb(217, 187, 15);
     background-color: black;
     text-align: center;
-    /* font-family: serif 'Times New Roman', Times, serif; */
 }
 
 * {
     margin: 0;
     padding: 0;
 }
+
 
 body {
     font-family: serif 'Times New Roman', Times, serif;
@@ -23,18 +22,67 @@ ul {
     list-style-type: none;
 }
 
+.moment-pirce {
+    text-align: center;
+    font-size: 35px;
+    border: 0;
+    background-color: black;
+    color: white;
+    resize: none;
+}
+
+.picBitc {
+    background-image: url(./pic/1.jpg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.averageData {
+    position: relative;
+    display: none;
+}
+
 .averageUl {
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
 .averageUl li {
-    margin: 10px
+    margin: 10px;
 }
 
+.averageText {
+    text-align: left;
+    font-size: 25px;
+    background-color: black;
+    color: antiquewhite;
+    border: 0;
+    opacity: 70%;
+    resize: none;
+}
+
+.weekLi {
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+}
+
+.monthLi {
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+}
 
 .previousBtn {
     margin: 10px 0px;
+}
+
+.btnAverage {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
 .btn {
@@ -44,6 +92,12 @@ ul {
     font-size: 17px;
 }
 
-.btn :hover{
-    background-color: rgb(215, 128, 29);
+.previousBtn :hover {
+    background-color: rgb(160, 90, 9);
+}
+
+.footer img{
+    background: no-repeat;
+    opacity: 20%;
+    background-size: contain;
 }
