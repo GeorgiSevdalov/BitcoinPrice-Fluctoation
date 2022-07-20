@@ -22,21 +22,37 @@
                 <li>
                     <h4>Current bitcoin price:</h4>
                 </li>
-                <li><textarea name="moment-pirce" id="moment-pirce" cols="" rows=""></textarea></li>
+                <!-- set interval -->
+                <li><textarea class="moment-pirce" name="moment-pirce" id="moment-pirce" readonly="readonly" cols="19"
+                        rows="1"></textarea>
+                </li>
             </ul>
         </div>
-        <div>
+    </section>
+    <section class="picBitc">
+        <div class="averageData" id="prim">
             <h4>Calculate average price.</h4>
             <ul class="averageUl">
-                <li>
-                    <textarea name="week-pirce" id="week-pirce" cols="" rows=""></textarea>
-                    <button class="btn">for week</button>
+                <li class="weekLi">
+                    <p>Week status:</p>
+                    <textarea class="averageText" name="week-pirce" id="week-pirce" readonly="readonly" cols="24"
+                        rows="2"></textarea>
+                    <textarea class="averageText" id="weekH" readonly="readonly" cols="24" rows="2"></textarea>
+                    <textarea class="averageText" id="weekL" readonly="readonly" cols="24" rows="2"></textarea>
                 </li>
-                <li>
-                    <textarea name="month-pirce" id="month-pirce" cols="" rows=""></textarea>
-                    <button class="btn">for month</button>
+                <li class="monthLi">
+                    <p>Month status:</p>
+                    <textarea class="averageText" name="week-pirce" id="month-pirce" readonly="readonly" cols="24"
+                        rows="2"></textarea>
+                    <textarea class="averageText" id="monthH" readonly="readonly" cols="24" rows="2"></textarea>
+                    <textarea class="averageText" id="monthL" readonly="readonly" cols="24" rows="2"></textarea>
                 </li>
+
             </ul>
+
+        </div>
+        <div class="previousBtn btnAverage">
+            <button class="btn" onclick="toggleElement()">show details</details></button>
         </div>
     </section>
     <section>
@@ -46,18 +62,72 @@
                     <h4>See previous value:</h4>
                 </li>
                 <li class="previousBtn">
-                    <button class="btn">for week</button>
-                    <button class="btn">for month</button>
+                    <button onclick="toggleWeek()" class="btn">for week</button>
+                    <button onclick="toggleMonth()" class="btn">for month</button>
                 </li>
             </ul>
         </div>
-        <div>
-            <textarea name="jsonArr" id="jsonArr" cols="30" rows="10"></textarea>
+        <div id="prim1" class="averageData">
+            <textarea class="averageText" id="weekJson" cols="30" rows="10"></textarea>
+        </div>
+        <div id="prim2" class="averageData">
+            <textarea class="averageText" id="monthJson" cols="30" rows="10"></textarea>
         </div>
     </section>
 
 
-    <script src="script.js"></script>
+    <script>
+        fetch("../dataJSON/dataForHtml.json")
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                document.querySelector("#moment-pirce").innerText = (`${data.momentPrice.price}$`)
+                document.querySelector("#week-pirce").innerText = (`Average price for week: ${data.week.averagePrice}$`)
+                document.querySelector("#weekH").innerText = (`Highest price for period: ${data.week.highest}$`)
+                document.querySelector("#weekL").innerText = (`Lowest price for period: ${data.week.lowest}$`)
+                document.querySelector("#month-pirce").innerText = (`Average price for week: ${data.month.averagePrice}$`)
+                document.querySelector("#monthH").innerText = (`Highest price for period: ${data.month.highest}$`)
+                document.querySelector("#monthL").innerText = (`Lowest price for period: ${data.month.lowest}$`)
+            })
+
+        function toggleElement() {
+            let x = document.getElementById("prim");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+
+        function toggleWeek() {
+            let x = document.getElementById("prim1");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+
+        function toggleMonth() {
+            let x = document.getElementById("prim2");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+
+        fetch("../dataJSON/weekMonthData.json")
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                document.querySelector("#weekJson").innerText = data.weekData.arrayW
+                document.querySelector("#monthJson").innerText = data.monthData.arrayM
+            })
+    </script>
+    <footer class="footer">
+        <img src="./pic/2.jpg">
+    </footer>
 </body>
 
 </html>
